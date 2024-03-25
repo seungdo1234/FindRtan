@@ -15,7 +15,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text timeText;
     [SerializeField] private GameObject endText;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip matchAudio;
     public int CardCount { get; set; }
+    public bool isPlay;
     private float timer = 0;
     private void Awake()
     {
@@ -23,7 +26,10 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        
+
+        isPlay = false;
+        timer = maxTime;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -34,17 +40,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        timer += Time.deltaTime;
+        timer -= Time.deltaTime;
         timeText.text = $"{timer:F2}";
 
-        if (timer >= maxTime)
+        if (timer <= 0 )
         {
+            timer = 0;
             GameEnd();
         }
     }
 
     private void GameEnd()
     {
+        isPlay = true;
         Time.timeScale = 0f;
         endText.SetActive(true);
     }
@@ -53,6 +61,7 @@ public class GameManager : MonoBehaviour
         // 같은 카드라면
         if (FirstCard.idx == SecondCard.idx)
         {
+            audioSource.PlayOneShot(matchAudio);
             FirstCard.DestroyCard();
             SecondCard.DestroyCard();
             CardCount -= 2;

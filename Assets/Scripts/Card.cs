@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,16 @@ public class Card : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject front;
     [SerializeField] private GameObject back;
-    
-    
     [HideInInspector] public int idx = 0;
+
+    [SerializeField] private AudioClip flipAudio;
+    private AudioSource audioSource;
+    
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void Setting(int number) // 카드 초기화
     {
      //   Debug.Log(number);
@@ -22,6 +30,14 @@ public class Card : MonoBehaviour
 
     public void OpenCard() // 카드 오픈
     {
+        if (GameManager.instance.isPlay)
+        {
+            return;
+        }
+        
+        if(GameManager.instance.SecondCard != null) return;
+        
+        audioSource.PlayOneShot(flipAudio); // PlayOneShot : 오디오끼리 겹치지 않음
         anim.SetBool("isOpen",true);
         back.SetActive(false);
         front.SetActive(true);

@@ -19,8 +19,8 @@ public class Board : MonoBehaviour
         {
             GameObject card = Instantiate(cardPrefab, transform);
 
-            float x = (i % 4) * 1.4f - 2.1f;
-            float y = (i / 4) * 1.4f - 3.0f;
+            float x = (i % 4) * 1.2f - 1.8f;
+            float y = (i / 4) * 1.2f - 2.6f;
             
             card.transform.position = new Vector3(x, y , 0);
             card.GetComponent<Card>().Setting(arr[i]);
