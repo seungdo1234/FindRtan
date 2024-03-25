@@ -897,6 +897,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2276443312042827673, guid: 69d5823e110e9b14f9e0ae2c30aeccf4, type: 3}
+      propertyPath: _testMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276443312042827673, guid: 69d5823e110e9b14f9e0ae2c30aeccf4, type: 3}
       propertyPath: _rewardedBtn
       value: 
       objectReference: {fileID: 0}
